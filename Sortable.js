@@ -4,7 +4,6 @@
  * @license MIT
  */
 
-
 (function (factory) {
 	"use strict";
 
@@ -41,7 +40,7 @@
 
 		activeGroup,
 		autoScroll = {},
-		
+
 		cancelledEl,
 		cancelled,
 
@@ -512,13 +511,13 @@
 				groupPut = group.put,
 				isOwner = (activeGroup === group),
 				canSort = options.sort;
-				
+
 			if (cancelled) {
 				if (cancelledEl) {
 					_toggleClass(cancelledEl, options.cancelledClass, true)
 				}
 				return;
-			}				
+			}
 
 			if (evt.preventDefault !== void 0) {
 				evt.preventDefault();
@@ -694,45 +693,35 @@
 
 					cancelled = cancelled || false;
 
-          if(!cancelled) {
-						if(!rootEl.contains(dragEl)){
-							// Remove event
-							rootEl.dispatchEvent(_createEvent('remove', dragEl));
+					if (!cancelled) {
 
-							// Add event
-							dragEl.dispatchEvent(_createEvent('add', dragEl));
-						}
-						else if(dragEl.nextSibling !== nextEl){
-							// Update event
-							dragEl.dispatchEvent(_createEvent('update', dragEl));
-						}
-					}
-
-					if (rootEl !== dragEl.parentNode) {
-						newIndex = _index(dragEl);
-
-						// drag from one list and drop into another
-						_dispatchEvent(null, dragEl.parentNode, 'sort', dragEl, rootEl, oldIndex, newIndex);
-						_dispatchEvent(this, rootEl, 'sort', dragEl, rootEl, oldIndex, newIndex);
-
-						// Add event
-						_dispatchEvent(null, dragEl.parentNode, 'add', dragEl, rootEl, oldIndex, newIndex);
-
-						// Remove event
-						_dispatchEvent(this, rootEl, 'remove', dragEl, rootEl, oldIndex, newIndex);
-					}
-					else {
-						// Remove clone
-						cloneEl && cloneEl.parentNode.removeChild(cloneEl);
-
-						if (dragEl.nextSibling !== nextEl) {
-							// Get the index of the dragged element within its parent
+						if (rootEl !== dragEl.parentNode) {
 							newIndex = _index(dragEl);
 
-							// drag & drop within the same list
-							_dispatchEvent(this, rootEl, 'update', dragEl, rootEl, oldIndex, newIndex);
+							// drag from one list and drop into another
+							_dispatchEvent(null, dragEl.parentNode, 'sort', dragEl, rootEl, oldIndex, newIndex);
 							_dispatchEvent(this, rootEl, 'sort', dragEl, rootEl, oldIndex, newIndex);
+
+							// Add event
+							_dispatchEvent(null, dragEl.parentNode, 'add', dragEl, rootEl, oldIndex, newIndex);
+
+							// Remove event
+							_dispatchEvent(this, rootEl, 'remove', dragEl, rootEl, oldIndex, newIndex);
 						}
+						else {
+							// Remove clone
+							cloneEl && cloneEl.parentNode.removeChild(cloneEl);
+
+							if (dragEl.nextSibling !== nextEl) {
+								// Get the index of the dragged element within its parent
+								newIndex = _index(dragEl);
+
+								// drag & drop within the same list
+								_dispatchEvent(this, rootEl, 'update', dragEl, rootEl, oldIndex, newIndex);
+								_dispatchEvent(this, rootEl, 'sort', dragEl, rootEl, oldIndex, newIndex);
+							}
+						}
+
 					}
 
 					if (Sortable.active) {
