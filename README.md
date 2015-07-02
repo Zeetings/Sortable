@@ -63,6 +63,8 @@ var sortable = new Sortable(el, {
 	filter: ".ignore-elements",  // Selectors that do not lead to dragging (String or Function)
 	draggable: ".item",  // Specifies which items inside the element should be sortable
 	ghostClass: "sortable-ghost",  // Class name for the drop placeholder
+ 	cancelledEl: cancelledElement, // Optional: specifies in which DOM element 'cancel' class name is toggled
+	cancelledClass: "sortable-cancelled",
 	dataIdAttr: 'data-id',
 	
 	scroll: true, // or HTMLElement
